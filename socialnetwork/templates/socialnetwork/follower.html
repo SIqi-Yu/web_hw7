@@ -1,0 +1,17 @@
+{% extends 'socialnetwork/base.html' %}
+{% load static %}
+
+{% block content %}
+<div id="id_page_name">Follower Stream</div>
+
+<form method="POST" action="{% url 'follower' %}">
+  {% csrf_token %}
+  {{ post_form.text }}
+  <button id="id_post_button" type="submit">Submit</button>
+</form>
+
+<hr>
+
+<div id="posts-container"></div>
+<script src="{% static 'socialnetwork/follower.js' %}"></script>
+{% endblock %}

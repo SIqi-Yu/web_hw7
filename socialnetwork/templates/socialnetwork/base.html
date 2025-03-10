@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+{% load static %}
+<head>
+    <title>Blog Master</title>
+    <link rel="stylesheet" href="{% static 'socialnetwork/styles.css' %}">
+</head>
+<body>
+  <div id="id_header_div">
+    <h1 id="id_site_name">Blog Master</h1>
+
+    {% if user.is_authenticated %}
+      <a id="id_nav_profile" href="{% url 'my_profile' %}">
+        {{ user.first_name }} {{ user.last_name }}
+      </a>
+      <a id="id_nav_global_stream" href="{% url 'global' %}">Global</a>
+      <a id="id_nav_follower_stream" href="{% url 'follower' %}">Follower</a>
+      <a id="id_nav_logout" href="{% url 'logout' %}">Logout</a>
+
+    {% else %}
+      <a id="id_login_link" href="{% url 'login' %}">Login</a>
+      <a id="id_register_link" href="{% url 'register' %}">Register</a>
+    {% endif %}
+  </div>
+
+  <hr>
+
+  <div>
+    {% block content %}
+    {% endblock %}
+  </div>
+</body>
+</html>

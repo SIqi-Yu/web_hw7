@@ -1,0 +1,29 @@
+{% extends 'socialnetwork/base.html' %}
+{% load static %}
+
+{% block content %}
+<div id="id_page_name">Profile Page for {{ user_fullname }}</div>
+
+{% if picture %}
+  <img id="id_user_picture" src="{{ picture.url }}" alt="Profile Picture" class="profile-img" />
+{% else %}
+  <img id="id_user_picture" src="{% static 'socialnetwork/default_profile.jpeg' %}" alt="Profile Picture" class="profile-img" />
+{% endif %}
+
+<p id="id_user_bio">
+  {{ bio }}
+</p>
+
+{% if can_follow %}
+  <form method="POST" action="{% url 'other_profile' other_user_id %}">
+    {% csrf_token %}
+    <button id="id_follow" type="submit" name="follow">Follow</button>
+  </form>
+{% elif can_unfollow %}
+  <form method="POST" action="{% url 'other_profile' other_user_id %}">
+    {% csrf_token %}
+    <button id="id_unfollow" type="submit" name="unfollow">Unfollow</button>
+  </form>
+{% endif %}
+
+{% endblock %}

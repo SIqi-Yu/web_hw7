@@ -1,0 +1,68 @@
+{% extends 'socialnetwork/base.html' %}
+{% load static %}
+
+{% block content %}
+<div id="id_page_name">Register</div>
+
+<!-- Any form-wide errors can go here -->
+{% if form.non_field_errors %}
+  <div class="errorlist">
+    {{ form.non_field_errors }}
+  </div>
+{% endif %}
+
+<form method="post" action="{% url 'register' %}">
+  {% csrf_token %}
+
+  <div>
+    <label for="id_username">Username:</label>
+    {{ form.username }}  <!-- Django will supply id="id_username" -->
+    {% for error in form.username.errors %}
+      <div class="errorlist">{{ error }}</div>
+    {% endfor %}
+  </div>
+
+  <div>
+    <label for="id_password">Password:</label>
+    {{ form.password }}  
+    {% for error in form.password.errors %}
+      <div class="errorlist">{{ error }}</div>
+    {% endfor %}
+  </div>
+
+  <div>
+    <label for="id_confirm_password">Confirm:</label>
+    {{ form.confirm_password }}
+    {% for error in form.confirm_password.errors %}
+      <div class="errorlist">{{ error }}</div>
+    {% endfor %}
+  </div>
+
+  <div>
+    <label for="id_email">E-mail:</label>
+    {{ form.email }}
+    {% for error in form.email.errors %}
+      <div class="errorlist">{{ error }}</div>
+    {% endfor %}
+  </div>
+
+  <div>
+    <label for="id_first_name">First Name:</label>
+    {{ form.first_name }}
+    {% for error in form.first_name.errors %}
+      <div class="errorlist">{{ error }}</div>
+    {% endfor %}
+  </div>
+
+  <div>
+    <label for="id_last_name">Last Name:</label>
+    {{ form.last_name }}
+    {% for error in form.last_name.errors %}
+      <div class="errorlist">{{ error }}</div>
+    {% endfor %}
+  </div>
+
+  <button id="id_register_button" type="submit">Submit</button>
+</form>
+
+{% endblock %}

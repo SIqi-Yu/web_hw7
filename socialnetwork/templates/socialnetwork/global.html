@@ -1,0 +1,61 @@
+{% extends 'socialnetwork/base.html' %}
+{% load static %}
+
+{% block content %}
+<div id="id_page_name">Global Stream</div>
+
+<form method="POST" action="{% url 'global' %}">
+  {% csrf_token %}
+  {{ post_form.text }}
+  <button id="id_post_button" type="submit">Submit</button>
+</form>
+
+<hr>
+
+<!-- Container for all posts -->
+<div id="posts-container">
+  <!-- We'll fill/refresh this via JavaScript. We also do an initial load with the existing posts
+       to match the server-rendered approach. -->
+  {% for post in posts %}
+    <div class="post-div" id="id_post_div_{{ post.id }}">
+      <p>
+        <a id="id_post_profile_{{ post.id }}" href="{% url 'other_profile' post.user.id %}">
+          {{ post.user.first_name }} {{ post.user.last_name }}
+        </a>
+        &ndash;
+        <span id="id_post_text_{{ post.id }}">
+          {{ post.text }}
+        </span>
+      </p>
+      <p id="id_post_date_time_{{ post.id }}">
+        {{ post.creation_time|date:"n/j/Y g:i A" }}
+      </p>
+
+      <!-- Comment section -->
+      <div class="comment-container" id="id_comment_container_{{ post.id }}">
+        <!-- Comments will be placed here by JavaScript, too. -->
+        {% comment %}
+        If you wanted to also server-render existing comments, you can do it here:
+        {% for c in post.comments.all|dictsort:"creation_time" %}
+          <div class="comment-div" id="id_comment_div_{{ c.id }}">
+            <a href="{% url 'other_profile' c.user.username %}">{{ c.user.first_name }} {{ c.user.last_name }}</a>:
+            <span>{{ c.text }}</span>
+            <p>{{ c.creation_time|date:"n/j/Y g:i A" }}</p>
+          </div>
+        {% endfor %}
+        {% endcomment %}
+      </div>
+
+      <!-- New comment input -->
+      <label>Comment:</label>
+      <input type="text" id="id_comment_input_text_{{ post.id }}">
+      <button type="button" onclick= "addComment( {{post.id}} )" id="id_comment_button_{{ post.id }}">Submit</button>
+    </div>
+    <hr>
+  {% endfor %}
+</div>
+
+
+<!-- Our JavaScript code for refreshing and adding comments -->
+<script src="{% static 'socialnetwork/global.js' %}"></script>
+{% endblock %}

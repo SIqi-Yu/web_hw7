@@ -1,0 +1,43 @@
+#errorlist {
+    color: blue;
+    font-weight: bold;
+  }
+  body {
+    font-size: 18px;
+  }
+  .profile-img {
+    width: 200px;
+    height: 200px;
+
+  }
+  
+  #id_header_div {
+    background-color: #ddd;
+    padding: 1em;
+    margin-bottom: 1em;
+  }
+  
+  a {
+    margin-right: 1em;
+  }
+  
+  .comment-div {
+    margin-left: 30px;
+    font-size: 18px; 
+  }
+
+  [id^="id_post_date_time_"], [id^="id_comment_date_time_"] {
+    color: #666;
+    font-style: italic;
+  }
+  
+  [id^="id_post_text_"], [id^="id_comment_text_"] {
+    font-size: 18px;
+  }
+
+label,
+input,
+button {
+  font-size: 18px; 
+  line-height: normal; 
+}
